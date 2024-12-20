@@ -34,7 +34,7 @@ fun CartScreen(navController: NavHostController, viewModel: MainViewModel = view
             TopAppBar(
                 title = { Text("Корзина") },
                 actions = {
-                    IconButton(onClick = { /* TODO: Перейти к поиску */ }) {
+                    IconButton(onClick = { navController.navigate("main") }) {
                         Icon(Icons.Default.Search, contentDescription = "Поиск")
                     }
                     IconButton(onClick = { navController.navigate("cart") }) {

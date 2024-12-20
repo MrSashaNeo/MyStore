@@ -28,7 +28,7 @@ fun ProductDetailScreen(navController: NavHostController, productId: Int, viewMo
                 TopAppBar(
                     title = { Text("Карточка товара") },
                     actions = {
-                        IconButton(onClick = { /* TODO: Перейти к поиску */ }) {
+                        IconButton(onClick = { navController.navigate("main") }) {
                             Icon(Icons.Default.Search, contentDescription = "Поиск")
                         }
                         IconButton(onClick = { navController.navigate("cart") }) {
@@ -59,3 +59,4 @@ fun ProductDetailScreen(navController: NavHostController, productId: Int, viewMo
         }
     }
 }
+

@@ -23,6 +23,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 
+
 @Composable
 fun MainScreen(navController: NavHostController, viewModel: MainViewModel = viewModel()) {
     val products by viewModel.products.collectAsState()
@@ -33,7 +34,7 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel = view
             TopAppBar(
                 title = { Text("Главный экран") },
                 actions = {
-                    IconButton(onClick = { /* TODO: Перейти к поиску */ }) {
+                    IconButton(onClick = { navController.navigate("main") }) {  // Обновлено
                         Icon(Icons.Default.Search, contentDescription = "Поиск")
                     }
                     IconButton(onClick = { navController.navigate("cart") }) {
@@ -48,27 +49,26 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel = view
                 }
             )
         }
-    ) { innerPadding ->
+    ) {
         LazyColumn(
-            contentPadding = innerPadding,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
         ) {
             items(products) { product ->
-                ProductCard(product, cart, viewModel)
+                ProductCard(product, cart, navController, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun ProductCard(product: Product, cart: List<CartItem>, viewModel: MainViewModel) {
+fun ProductCard(product: Product, cart: List<CartItem>, navController: NavHostController, viewModel: MainViewModel) {
     val isInCart = remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
-            .clickable { /* TODO: Перейти на экран карточки товара */ }
+            .clickable { navController.navigate("product/${product.id}") }
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
