@@ -32,7 +32,7 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel = view
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Главный экран") },
+                title = { Text("MyStore") },
                 actions = {
                     IconButton(onClick = { navController.navigate("main") }) {  // Обновлено
                         Icon(Icons.Default.Search, contentDescription = "Поиск")
@@ -75,7 +75,7 @@ fun ProductCard(product: Product, cart: List<CartItem>, navController: NavHostCo
                 painter = rememberImagePainter(data = product.imageUrl),
                 contentDescription = product.name,
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(200.dp)
                     .padding(8.dp)
             )
             Column(modifier = Modifier.padding(8.dp)) {

@@ -31,13 +31,31 @@ class MainViewModel : ViewModel() {
 
     fun addToCart(product: Product) {
         val updatedCart = _cart.value.toMutableList()
-        updatedCart.add(CartItem(product))
+        val existingItem = updatedCart.find { it.product.id == product.id }
+        if (existingItem != null) {
+            existingItem.quantity++
+        } else {
+            updatedCart.add(CartItem(product))
+        }
         _cart.value = updatedCart
     }
 
     fun removeFromCart(product: Product) {
         val updatedCart = _cart.value.toMutableList()
         updatedCart.removeAll { it.product.id == product.id }
+        _cart.value = updatedCart
+    }
+
+    fun updateQuantity(product: Product, quantity: Int) {
+        val updatedCart = _cart.value.toMutableList()
+        val existingItem = updatedCart.find { it.product.id == product.id }
+        if (existingItem != null) {
+            if (quantity > 0) {
+                existingItem.quantity = quantity
+            } else {
+                updatedCart.remove(existingItem)
+            }
+        }
         _cart.value = updatedCart
     }
 

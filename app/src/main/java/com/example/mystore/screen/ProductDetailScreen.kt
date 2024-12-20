@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,15 +49,25 @@ fun ProductDetailScreen(navController: NavHostController, productId: Int, viewMo
                 Image(
                     painter = rememberImagePainter(data = it.imageUrl),
                     contentDescription = it.name,
-                    modifier = Modifier.size(200.dp)
+                    modifier = Modifier.size(400.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(it.name, fontWeight = FontWeight.Bold, fontSize = 24.sp)
                 Text("${it.price} ₽", fontSize = 20.sp)
                 Text("⭐ ${it.rating} (${it.reviewCount} отзывов)")
                 Text("Описание: ${it.description}")
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Добавляем Box для центрирования кнопки
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Button(onClick = { /* TODO: Реализация функционала заказа */ }) {
+                        Text("Заказать товар")
+                    }
+                }
             }
         }
     }
 }
-

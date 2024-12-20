@@ -8,7 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp  // Добавьте этот импорт
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberImagePainter
@@ -72,13 +72,31 @@ fun CartScreen(navController: NavHostController, viewModel: MainViewModel = view
                             Text("Цена: ${cartItem.product.price} ₽")
                             Text("Количество: ${cartItem.quantity}")
                         }
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        // Добавление кнопок изменения количества и удаления
+                        IconButton(onClick = { viewModel.updateQuantity(cartItem.product, cartItem.quantity + 1) }) {
+                            Icon(Icons.Default.Add, contentDescription = "Увеличить количество")
+                        }
+                        IconButton(onClick = { viewModel.updateQuantity(cartItem.product, cartItem.quantity - 1) }) {
+                            Icon(Icons.Default.Remove, contentDescription = "Уменьшить количество")
+                        }
+                        IconButton(onClick = { viewModel.removeFromCart(cartItem.product) }) {
+                            Icon(Icons.Default.Delete, contentDescription = "Удалить из корзины")
+                        }
                     }
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
             Text("Общая стоимость: $totalPrice ₽", fontWeight = FontWeight.Bold, fontSize = 20.sp)
-            Button(onClick = { /* TODO: Реализация заказа товаров */ }) {
-                Text("Заказать товары")
+
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Button(onClick = { /* TODO: Реализация заказа товаров */ }) {
+                    Text("Заказать товары")
+                }
             }
         }
     }
